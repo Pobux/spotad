@@ -3,7 +3,7 @@ IFS=$'\n'
 windows=($(wmctrl -l -p))
 current_volume=$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master))
 program="spotify"
-music_token="-" #as oppose to ad_token
+music_token=" - " #as oppose to ad_token
 current_state=$(amixer get Master | egrep 'Playback.*?\[o' | egrep -o '\[o.+\]')
 
 #Find card number with `arecord -l`. Using 0 by default.
