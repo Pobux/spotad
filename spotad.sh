@@ -34,10 +34,8 @@ do
     if [[ $pid_result = *"$program"* ]]; then
         #Check spotify window name for ads
         if [[ $i = *"$music_token"* ]]; then
-            #Open
             open_sound
         else
-            #Close
             close_sound
         fi
         break
