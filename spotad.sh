@@ -13,6 +13,7 @@ open_sound () {
         amixer set Master unmute
         amixer set Front unmute
         amixer set Headphone unmute
+        amixer set Speaker unmute
     fi
 }
 
@@ -33,7 +34,7 @@ do
     #Check if spotify is used
     if [[ $pid_result = *"$program"* ]]; then
         #Check spotify window name for ads
-        if [[ $i = *"$music_token"* ]]; then
+        if [[ ($i = *"$music_token"*) && ($i != "spotify") ]]; then
             open_sound
         else
             close_sound
