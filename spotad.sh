@@ -1,7 +1,6 @@
 #!/bin/bash
 IFS=$'\n'
 windows=($(wmctrl -l -p))
-current_volume=$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master))
 program="spotify"
 music_token=" - " #as oppose to ad_token
 current_state=$(amixer get Master | egrep 'Playback.*?\[o' | egrep -o '\[o.+\]')
@@ -10,6 +9,7 @@ current_state=$(amixer get Master | egrep 'Playback.*?\[o' | egrep -o '\[o.+\]')
 #open mode
 open_sound () {
     if [[ $current_state != '[on]' ]]; then
+        sleep 1 #wait for ad to finish
         amixer set Master unmute
         amixer set Front unmute
         amixer set Headphone unmute
@@ -34,7 +34,7 @@ do
     #Check if spotify is used
     if [[ $pid_result = *"$program"* ]]; then
         #Check spotify window name for ads
-        if [[ ($i = *"$music_token"*) && ($i != "spotify") ]]; then
+        if [[ ($i = *"$music_token"*) && ($i != "Spotify") ]]; then
             open_sound
         else
             close_sound
