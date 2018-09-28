@@ -34,7 +34,7 @@ do
     #Check if spotify is used
     if [[ $pid_result = *"$program"* ]]; then
         #Check spotify window name for ads
-        if [[ ($i = *"$music_token"*) || ($i != "Spotify") ]]; then
+        if [[ ($i = *"$music_token"*) || ($i == "Spotify") ]]; then
             open_sound
         else
             close_sound
