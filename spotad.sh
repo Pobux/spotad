@@ -24,6 +24,24 @@ close_sound () {
     fi
 }
 
+has_spotify () {
+    for i in "${windows[@]}"
+    do
+        pid=$(echo $i | awk '{ print $3 }')
+        pid_result=$(ps -o cmd= -p $pid)
+        if [[ $pid_result = *"$program"* ]]; then
+           return 1 
+        fi
+    done
+    return 2 
+}
+
+$(has_spotify)
+if [ "$?" == "2" ]; then
+    open_sound
+    exit
+fi
+
 for i in "${windows[@]}"
 do
     :
@@ -35,7 +53,8 @@ do
     if [[ $pid_result = *"$program"* ]]; then
         #Check spotify window name for ads
         echo $i
-        if [[ ($i = *"$music_token"*) || ($i = *" Spotify") ]]; then
+        has_spotify=1
+        if [[ $i = *"$music_token"* ]] && ! [[ $i = *"Christmas"* ]]; then
             open_sound
         else
             close_sound
